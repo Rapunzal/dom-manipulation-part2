@@ -147,7 +147,8 @@ topMenuEl.addEventListener("click", (event) => {
           subMenuEl.style.top = "100%";
         } else {
           subMenuEl.style.top = "0%";
-          h1.textContent = event.target.text;
+          let str = event.target.text;
+          h1.textContent = str.charAt(0).toUpperCase() + str.slice(1);
         }
       }
     }
@@ -179,5 +180,7 @@ subMenuEl.addEventListener("click", (event) => {
   for (let link of topMenuLinks) {
     link.classList.remove("active");
   }
-  h1.textContent = event.target.text;
+  let str = event.target.text;
+
+  h1.textContent = str.charAt(0).toUpperCase() + str.slice(1);
 });
