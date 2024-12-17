@@ -80,7 +80,7 @@ for (let link of menuLinks) {
   a.textContent = link.text;
   a.setAttribute("href", link.href);
   topMenuEl.appendChild(a);
-  console.log(link, "  ----link");
+  //console.log(link, "  ----link");
 }
 
 //4.Part 4: Adding Interactivity
@@ -116,15 +116,23 @@ const topMenuLinks = document.querySelectorAll("#top-menu a");
 const topMenuLinksArr = Array.from(topMenuLinks);
 console.log(topMenuLinks, " topmenulinks");
 
+//2.Attach a delegated 'click' event listener to topMenuEl.
 topMenuEl.addEventListener("click", (event) => {
+  //The first line of code of the event listener function should call the event object's preventDefault() method.
   event.preventDefault();
   console.log(event.target.className);
+  //The second line of code of the function should immediately return if the element clicked was not an <a> element.
   if (event.target.localName !== "a") {
     return;
   }
+  //Log the content of the <a> to verify the handler is working.
+  console.log(event.target.textContent);
+
   //1.The event listener should add the active class to the <a> element that was clicked, unless it was already active, in which case it should remove it.
   if (event.target.className !== "active") {
     event.target.classList.add("active");
+  } else if (event.target.className === "active") {
+    event.target.classList.remove("active");
   }
 
   //The event listener should remove the active class from each other <a> element in topMenuLinks - whether the active class exists or not.
@@ -132,15 +140,14 @@ topMenuEl.addEventListener("click", (event) => {
   for (let i = 0; i < topMenuLinks.length; i++) {
     //console.log(i, " removing ");
     topMenuLinks[i].classList.remove("active");
-    event.target.classList.add("active");
   }
+  event.target.classList.add("active");
   if (event.target.className == "active") {
     console.log(event.target.text, "   7887");
 
     for (let links of menuLinks) {
-      console.log(links.subLinks !== undefined);
-      console.log(links.text, "links=====");
-
+      // console.log(links.subLinks !== undefined);
+      //console.log(links.text, "links=====");
       if (links.text === event.target.text) {
         buildSubmenu(links.subLinks);
         if (links.subLinks !== undefined) {
@@ -171,11 +178,14 @@ function buildSubmenu(subLinks) {
 //1.Attach a delegated 'click' event listener to subMenuEl.
 
 subMenuEl.addEventListener("click", (event) => {
+  //The first line of code of the event listener function should call the event object's preventDefault() method.
   event.preventDefault();
   console.log(event.target.localName, "  localname=====");
+  //The second line of code within the function should immediately return if the element clicked was not an <a> element.
   if (event.target.localName !== "a") {
     return;
   }
+  console.log(event.target.localName, "  localname=====");
   subMenuEl.style.top = 0;
   for (let link of topMenuLinks) {
     link.classList.remove("active");
